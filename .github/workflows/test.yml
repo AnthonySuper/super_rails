@@ -14,7 +14,7 @@ jobs:
     name: SuperSerializer on Ruby ${{ matrix.ruby }}
     defaults:
       run:
-        working-directory: super-serializer/
+        working-directory: super_serializer/
     strategy:
       matrix:
         ruby:
