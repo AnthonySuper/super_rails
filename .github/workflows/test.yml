@@ -12,9 +12,6 @@ jobs:
   build-super-serializer:
     runs-on: ubuntu-latest
     name: SuperSerializer on Ruby ${{ matrix.ruby }}
-    defaults:
-      run:
-        working-directory: super_serializer/
     strategy:
       matrix:
         ruby:
@@ -25,8 +22,10 @@ jobs:
     - uses: actions/checkout@v3
     - name: Set up ruby
       uses: ruby/setup-ruby@v1
+      working-directory: super_serializer/
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
     - name: Run the default task
       run: bundle exec rake
+      working-directory: super_serializer/
