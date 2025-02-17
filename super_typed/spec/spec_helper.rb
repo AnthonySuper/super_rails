@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
-require "debug"
-require "bundler"
-
-Bundler.setup
-
 require "super_typed"
-require "super_serializer"
-
-require_relative "./support/defs"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

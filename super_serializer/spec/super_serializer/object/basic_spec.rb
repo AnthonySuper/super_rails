@@ -9,8 +9,12 @@ RSpec.describe "SuperSerializer::Object: basic usage" do
     { "first_name" => "Rich", "last_name" => "Evans" }
   end
 
+  it "is defined" do
+    expect(defined?(SuperTyped)).to be_truthy
+  end
+
   it "has a good type definition" do
-    expect(serializer.type_definition).to be_a(SuperSerializer::TypeDefinition::Referenced)
+    expect(serializer.type_definition).to be_a(SuperTyped::Definition::Referenced)
   end
 
   it "is a class" do

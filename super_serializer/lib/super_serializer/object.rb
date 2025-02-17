@@ -55,14 +55,16 @@ class SuperSerializer::Object # rubocop:disable Metrics/ClassLength
       SuperSerializer::Primitive.lookup(type)
     end
 
-    def type_definition
-      if (name = referenced_type_name)
-        SuperSerializer::TypeDefinition::Referenced.new(
-          name:,
-          definition_proc: proc { object_definition }
-        )
-      else
-        object_definition
+    if defined?(SuperTyped)
+      def type_definition
+        if (name = referenced_type_name)
+          SuperTyped::Definition::Referenced.new(
+            name:,
+            definition_proc: proc { object_definition }
+          )
+        else
+          object_definition
+        end
       end
     end
 
@@ -70,23 +72,29 @@ class SuperSerializer::Object # rubocop:disable Metrics/ClassLength
 
     private
 
-    def object_definition
-      SuperSerializer::TypeDefinition::Object.new(
-        properties: each_property_definition.to_a
-      )
-    end
-
-    def each_property_definition
-      return enum_for(__callee__) unless block_given?
-
-      attribute_serializers.each do |name, serializer|
-        yield SuperSerializer::TypeDefinition::Property.new(name:, type: type_definition_for(serializer),
-                                                            required: true)
+    if defined?(SuperTyped)
+      def object_definition
+        SuperTyped::Definition::Object.new(
+          properties: each_property_definition.to_a
+        )
       end
 
-      relationship_serializers.each do |name, serializer|
-        yield SuperSerializer::TypeDefinition::Property.new(name:, type: type_definition_for(serializer),
-                                                            required: false)
+      def each_property_definition # rubocop:disable Metrics/*
+        return enum_for(__callee__) unless block_given?
+
+        attribute_serializers.each do |name, serializer|
+          yield SuperTyped::Definition::Property.new(
+            name:, type: type_definition_for(serializer),
+            required: true
+          )
+        end
+
+        relationship_serializers.each do |name, serializer|
+          yield SuperTyped::Definition::Property.new(
+            name:, type: type_definition_for(serializer),
+            required: false
+          )
+        end
       end
     end
 

@@ -29,3 +29,23 @@ jobs:
     - name: Run the default task
       run: bundle exec rake
       working-directory: super_serializer/
+  build-super-typed:
+    runs-on: ubuntu-latest
+    name: SuperTyped on Ruby ${{ matrix.ruby }}
+    strategy:
+      matrix:
+        ruby:
+          - '3.2.2'
+          - '3.3'
+          - '3.4'
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+        working-directory: super_typed/
+    - name: Run the default task
+      run: bundle exec rake
+      working-directory: super_typed/

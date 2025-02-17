@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-module SuperSerializer::TypeDefinition
+##
+# Basic definitions of types.
+module SuperTyped::Definition
   Primitive = Data.define(:type)
 
   Literal = Data.define(:value)

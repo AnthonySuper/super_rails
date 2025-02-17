@@ -35,9 +35,11 @@ class SuperSerializer::Compound::Array
     SuperSerializer::Compound::Array::Wrapped.new(element_serializer, array)
   end
 
-  def type_definition
-    TypeDefinition::ArrayOf.new(
-      type_definition_for(element_serializer)
-    )
+  if defined?(SuperTyped)
+    def type_definition
+      SuperTyped::Definition::ArrayOf.new(
+        type_definition_for(element_serializer)
+      )
+    end
   end
 end

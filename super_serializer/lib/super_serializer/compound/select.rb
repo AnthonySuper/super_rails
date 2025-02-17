@@ -32,10 +32,12 @@ class SuperSerializer::Compound::Select
 
   attr_reader :serializer_map, :select_proc
 
-  def type_definition
-    TypeDefinition::OneOf.new(
-      serializer_map.each_value.map { |val| type_definition_for(val) }
-    )
+  if defined?(SuperTyped)
+    def type_definition
+      SuperType::Definition::OneOf.new(
+        serializer_map.each_value.map { |val| type_definition_for(val) }
+      )
+    end
   end
 
   def new(object)

@@ -35,11 +35,13 @@ module SuperSerializer::SerializerDefinition
 
   private
 
-  def type_definition_for(other_serializer)
-    if other_serializer.respond_to?(:type_definition)
-      other_serializer.type_definition
-    else
-      TypeDefinition::Untyped.new(other_serializer)
+  if defined?(SuperType)
+    def type_definition_for(other_serializer)
+      if other_serializer.respond_to?(:type_definition)
+        other_serializer.type_definition
+      else
+        TypeDefinition::Untyped.new(other_serializer)
+      end
     end
   end
 end

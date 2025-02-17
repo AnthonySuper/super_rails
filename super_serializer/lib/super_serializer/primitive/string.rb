@@ -3,10 +3,9 @@
 ##
 # Primitive serializer for a *string*.
 class SuperSerializer::Primitive::String < SuperSerializer::Primitive::Base
-  def self.to_type_definition_with_references
-    [
-      TypeDefinition::Primitive.new("string"),
-      {}
-    ]
+  if defined?(SuperTyped)
+    def self.type_definition
+      SuperTyped::Definition::Primitive.new("string")
+    end
   end
 end

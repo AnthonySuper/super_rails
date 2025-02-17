@@ -3,10 +3,9 @@
 ##
 # Serializes out a null in JSON.
 class SuperSerializer::Primitive::Null < SuperSerializer::Primitive::Base
-  def self.to_type_definition_with_references
-    [
-      TypeDefinition::Primitive.new("null"),
-      {}
-    ]
+  if defined?(SuperTyped)
+    def self.type_definition
+      SuperTyped::Definition::Primitive.new("null")
+    end
   end
 end

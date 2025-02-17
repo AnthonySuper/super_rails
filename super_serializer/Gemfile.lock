@@ -1,4 +1,10 @@
 PATH
+  remote: ../super_typed
+  specs:
+    super_typed (0.1.0)
+      zeitwerk (~> 2.6)
+
+PATH
   remote: .
   specs:
     super_serializer (0.1.0)
@@ -110,6 +116,7 @@ DEPENDENCIES
   rspec (~> 3.0)
   rubocop (~> 1.21)
   super_serializer!
+  super_typed!
 
 BUNDLED WITH
    2.4.10
