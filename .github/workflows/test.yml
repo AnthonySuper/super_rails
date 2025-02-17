@@ -11,10 +11,10 @@ on:
 jobs:
   build-super-serializer:
     runs-on: ubuntu-latest
-    name: SuperSerializer ${{ matrix.ruby }}
+    name: SuperSerializer on Ruby ${{ matrix.ruby }}
     defaults:
       run:
-        working-directory: ./super-serializer/
+        working-directory: super-serializer/
     strategy:
       matrix:
         ruby:
